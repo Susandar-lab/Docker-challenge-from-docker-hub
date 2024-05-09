@@ -56,13 +56,13 @@ Answer #1: I-found-this-in-the-log
 #2 Perform a web request to the container using 'example.com' as the host header
 Results:
 
-~ ➜ curl -H "Host: [example.com](http://example.com/)" [http://172.16.251.45:8080](http://172.16.251.45:8080/)
+~ ➜ curl -H "Host: [example.com](http://example.com/)" [http://localhost:8080](http://localhost:8080/)
 Answer #2: Nice-keep-it-up!%
 
 
 
 ```bash
-~ ➜ curl -H "Host: example.com" http://172.16.251.45:8080
+~ ➜ curl -H "Host: example.com" http://localhost:8080
 Answer #2: Nice-keep-it-up!%
 ```
 
@@ -95,20 +95,20 @@ status: {}
 $ vi tech-challenge.yaml
 #insert the above yaml output
 
-su@localhost:~/tech-challenge$ kubectl apply -f tech-challenge.yaml
+$ kubectl apply -f tech-challenge.yaml
 pod/tech-challenge created
-su@localhost:~/tech-challenge$ kubectl get pod
+$ kubectl get pod
 NAME             READY   STATUS    RESTARTS   AGE
 tech-challenge   1/1     Running   0          80s
-su@localhost:~/tech-challenge$ kubectl expose pod tech-challenge --type=NodePort --name=tech-challenge-service
+$ kubectl expose pod tech-challenge --type=NodePort --name=tech-challenge-service
 service/tech-challenge-service exposed
-su@localhost:~/tech-challenge$ kubectl get svc
+$ kubectl get svc
 NAME                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 kubernetes               ClusterIP   10.96.0.1        <none>        443/TCP        83m
 tech-challenge-service   NodePort    10.104.249.124   <none>        80:31815/TCP   7s
-su@localhost:~/tech-challenge$ kubectl logs tech-challenge
+$ kubectl logs tech-challenge
 Answer #1: I-found-this-in-the-log
-su@localhost:~/tech-challenge$
+
 ```
 
 
@@ -134,7 +134,7 @@ $ls
 challenge-4.txt  tech-challenge-service.yaml  tech-challenge.yaml
 $cat challenge-4.txt
 
-Answer #4: I-found-the-random-stringroot@ssh-cacti:/home/frontiir/tech-challenge#
+Answer #4: I-found-the-random-string
 ```
 
 #5: Add a readiness probe to check the /healthz path of the container, tip: check the logs once a probe has run
@@ -142,7 +142,7 @@ Answer #4: I-found-the-random-stringroot@ssh-cacti:/home/frontiir/tech-challenge
 Results
 
 ```bash
-$ vi tech-challenge.yaml
+$vi tech-challenge.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -160,7 +160,7 @@ spec:
       initialDelaySeconds: 5
       periodSeconds: 10
 
-su@localhost:~/tech-challenge$ kubectl replace --force -f tech-challenge.yaml
+$kubectl replace --force -f tech-challenge.yaml
 pod "tech-challenge" deleted
 pod/tech-challenge replaced
 $kubectl get pods
